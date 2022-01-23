@@ -75,21 +75,86 @@ client.on('interactionCreate', i => {
 
     if (i.commandName === 'translate') {
         let options = {
-            from: i.options.getString("from"),
             to: i.options.getString("to"),
             text: i.options.getString("text"),
         }
 
         translate(options.text, { to: options.to }).then(res => {
             let e = new Discord.MessageEmbed()
-            .setAuthor(i.user.username, i.user.avatarURL({ dynamic: true }))
+            .setAuthor(i.user.username+"#"+i.user.discriminator, i.user.avatarURL({ dynamic: true }))
             .setDescription("```"+res+"```")
             .setColor("RANDOM")
             i.reply({
                 embeds: [e]
             })
         }).catch(err => {
-            
+            let l = new Discord.MessageEmbed()
+            .setAuthor(i.user.username+"#"+i.user.discriminator, i.user.avatarURL({ dynamic: true }))
+            .setDescription("```Error```")
+            .setColor("RED")
+            i.reply({
+                embeds: [l]
+            })
         })
+    }
+
+    if (i.commandName === 'help') {
+        let options = {
+            commands: i.options.getString("commands"),
+        }
+
+        if (options.commands === "help_cmd") {
+            let f = new Discord.MessageEmbed()
+            .setAuthor("Request By "+i.user.username+"#"+i.user.discriminator, i.user.avatarURL({ dynamic: true }))
+            .setDescription(`Use **/help** to get the commands.`)
+            .setColor("RANDOM")
+
+            return i.reply({
+                embeds: [f]
+            })
+        }
+
+        if (options.commands === "translate_cmd") {
+            let f = new Discord.MessageEmbed()
+            .setAuthor("Request By "+i.user.username+"#"+i.user.discriminator, i.user.avatarURL({ dynamic: true }))
+            .setDescription(`Use **/translate** to translate text.`)
+            .setColor("RANDOM")
+
+            return i.reply({
+                embeds: [f]
+            })
+        }
+
+        if (options.commands === "links_cmd") {
+            let f = new Discord.MessageEmbed()
+            .setAuthor("Request By "+i.user.username+"#"+i.user.discriminator, i.user.avatarURL({ dynamic: true }))
+            .setDescription(`Use **/links** to get bot links.`)
+            .setColor("RANDOM")
+
+            return i.reply({
+                embeds: [f]
+            })
+        }
+            let e = new Discord.MessageEmbed()
+            .setAuthor("Request By "+i.user.username+"#"+i.user.discriminator, i.user.avatarURL({ dynamic: true }))
+            .setDescription(`How to use Translator? To translate a text use **/translate** and enter the required options.`)
+            .setColor("RANDOM")
+
+            i.reply({
+                embeds: [e]
+            })
+    }
+
+    if (i.commandName === 'links') {
+            let e = new Discord.MessageEmbed()
+            .setAuthor(i.user.username+"#"+i.user.discriminator, i.user.avatarURL({ dynamic: true }))
+            .setDescription(`These are the most important and useful links of the bot:
+**INVITE ➜** [Here](https://discord.com/api/oauth2/authorize?client_id=934810188731527238&permissions=8&scope=applications.commands%20bot)
+**SUPPORT SERVER ➜** [Join](https://discord.gg/TAdzr7m4bS)
+**GITHUB ➜** [Repository](https://github.com/BotGround/Translator)`)
+            .setColor("RANDOM")
+            i.reply({
+                embeds: [e]
+            })
     }
 })
