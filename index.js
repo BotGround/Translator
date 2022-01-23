@@ -5,9 +5,8 @@ const env = require('dotenv').config()
 
 client.on('ready', () => {
     console.log(`${client.user.username}#${client.user.discriminator} Online!`)
-
-    const guild = client.guilds.cache.get('934811037520236614')
-    let commands = guild.commands
+    client.user.setActivity("/ for help");
+    let commands = client.application?.commands;
 
     commands?.create({
         name: 'help',
@@ -71,6 +70,7 @@ client.login(process.env.TOKEN)
 
 
 client.on('interactionCreate', i => {
+    if (!i.channel.type == "dm") return;
     if (!i.isCommand()) return;
 
     if (i.commandName === 'translate') {
